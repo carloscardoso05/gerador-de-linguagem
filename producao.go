@@ -7,16 +7,16 @@ type Producao struct {
 	fim string
 }
 
-func (p Producao) Aplicar(cadeia string) string {
-	return strings.Replace(cadeia, p.inicio, p.fim, 1)
+func (producao Producao) Aplicar(cadeia string) string {
+	return strings.Replace(cadeia, producao.inicio, producao.fim, 1)
 }
 
-func (p Producao) AplicarLoop(cadeia string) string {
+func (producao Producao) AplicarToda(cadeia string) string {
 	atual := cadeia
-	prev := p.Aplicar(cadeia)
+	prev := producao.Aplicar(cadeia)
 	for prev != atual{
 		prev = atual
-		atual = p.Aplicar(atual)
+		atual = producao.Aplicar(atual)
 	}
 	return atual
 }

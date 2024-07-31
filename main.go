@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func main() {
 	t := Conjunto[string]{}
 	t.Adicionar("a")
@@ -17,5 +19,8 @@ func main() {
 		Producoes:   p,
 	}
 
-	a.Linguagem()
+	linguagem := a.Linguagem(50)
+	for _, prod := range linguagem {
+		fmt.Println(prod)
+	}
 }

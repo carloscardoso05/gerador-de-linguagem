@@ -9,22 +9,22 @@ type Fila[T any] struct {
 	Primeiro *Item[T]
 }
 
-func (f *Fila[T]) Retirar() *Item[T] {
-	if f.Primeiro != nil {	
+func (fila *Fila[T]) Retirar() *Item[T] {
+	if fila.Primeiro != nil {	
 		retirado := Item[T]{
-			valor:   f.Primeiro.valor,
+			valor:   fila.Primeiro.valor,
 			proximo: nil,
 		}
 		
-		f.Primeiro = f.Primeiro.proximo
+		fila.Primeiro = fila.Primeiro.proximo
 		
 		return &retirado
 	}
 	return nil
 }
 
-func (f *Fila[T]) Adicionar(item Item[T]) {
-	cursor := &f.Primeiro
+func (fila *Fila[T]) Adicionar(item Item[T]) {
+	cursor := &fila.Primeiro
 	for {
 		if (*cursor == nil) {
 			*cursor = &item
@@ -34,9 +34,9 @@ func (f *Fila[T]) Adicionar(item Item[T]) {
 	}
 }
 
-func (f Fila[T]) Len() int {
+func (fila Fila[T]) Len() int {
 	i := 0
-	cursor := f.Primeiro
+	cursor := fila.Primeiro
 	for {
 		if (cursor == nil) {
 			return i

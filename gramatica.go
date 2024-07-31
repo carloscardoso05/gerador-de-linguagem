@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -12,24 +11,26 @@ type Gramatica struct {
 	Raiz        string
 }
 
-func (g Gramatica) NaoTerminais() Conjunto[string] {
-	return g.Vocabulario.Menos(g.Terminais)
+func (gramatica Gramatica) NaoTerminais() Conjunto[string] {
+	return gramatica.Vocabulario.Menos(gramatica.Terminais)
 }
 
-func (g Gramatica) Linguagem() {
+func (gramatica Gramatica) Linguagem(limite uint) []string {
 	fila := Fila[string]{}
-	fila.Adicionar(Item[string]{valor: g.Raiz})
+	fila.Adicionar(Item[string]{valor: gramatica.Raiz})
+	res := make([]string, limite)
 
-	for i := 0; i < 50; i++ {
+	for i := 0; i < int(limite); i++ {
 		atual := fila.Retirar()
 		if atual == nil {
-			return
+			return res
 		}
-		fmt.Println(atual.valor)
-		for p := range g.Producoes {
+		res[i] = atual.valor
+		for p := range gramatica.Producoes {
 			if strings.Contains(atual.valor, p.inicio) {
 				fila.Adicionar(Item[string]{valor: p.Aplicar(atual.valor)})
 			}
 		}
 	}
+	return res
 }
